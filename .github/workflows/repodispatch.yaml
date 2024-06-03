@@ -13,6 +13,6 @@ jobs:
         actions: write
     steps:
     - uses: actions/checkout@v4
-    - run: 'echo "field: ${{ github.event.client_payload.oldAMI }}"'
-    - run: 'echo "field: ${{ github.event.client_payload.newAMI }}"'
+    - run: 'echo "field: ${{ github.event.client_payload.previousAMI }}"'
+    - run: 'echo "field: ${{ github.event.client_payload.createdAMI }}"'
     - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'    

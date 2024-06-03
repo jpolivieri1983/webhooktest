@@ -3,19 +3,6 @@ name: Golden AMI test
 on:
   repository_dispatch:
       types: [integration-event]
-#      inputs:
-#        old-AMI:
-#            required: true
-#            type: string
-#            description: previous AMI value from SSM     
-#            default: 'old-AMI-value'     
-#        new-AMI:
-#            required: true
-#            type: string
-#            description: new AMI value from SSM
-#            default: 'new-AMI-value'
-  workflow_dispatch:
-
 
 jobs:
   Update-Golden-AMI:
@@ -29,7 +16,3 @@ jobs:
     - run: 'echo "field: ${{ github.event.client_payload.oldAMI }}"'
     - run: 'echo "field: ${{ github.event.client_payload.newAMI }}"'
     - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'    
-
-    
-    #  - run: echo "${{ github.event.inputs.old-AMI }} = OLD AMI."
-    #  - run: echo "${{ github.event.inputs.new-AMI }} = NEW AMI."

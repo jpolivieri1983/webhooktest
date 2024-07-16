@@ -18,8 +18,8 @@ jobs:
     - run: 'echo "field Created AMI: ${{ github.event.client_payload.createdAMI }}"'
     - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'    
     
-    - name: Test1
-      id: t1
+    - name: get current time
+      id: current_time
       uses: Kaven-Universe/github-action-current-date-time@v1
       with:
         format: "YYYY_MM_DD"
@@ -29,7 +29,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "The time was ${{ steps.t1.outputs.time }}"
-        git branch automation/updateAMI-${{env.NOW}} 
-        git checkout automation/updateAMI-${{env.NOW}}
+        git branch automation/updateAMI-${{ steps.t1.outputs.time }}"-${{ github.repository }}
+        git checkout automation/updateAMI-${{ steps.t1.outputs.time }}"-${{ github.repository }}
     - run: echo "Your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."    

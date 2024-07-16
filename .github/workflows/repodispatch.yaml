@@ -3,6 +3,7 @@ name: Golden AMI test
 on:
   repository_dispatch:
       types: [integration-event]
+  workflow_dispatch:    
 
 jobs:
   Update-Golden-AMI:
@@ -16,3 +17,15 @@ jobs:
     - run: 'echo "field Previous AMI: ${{ github.event.client_payload.previousAMI }}"'
     - run: 'echo "field Created AMI: ${{ github.event.client_payload.createdAMI }}"'
     - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'    
+
+    - name: 2. Create new branch
+      id: create_branch
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $NOW=& Get-Date -format yyyy-MM-dd
+        echo "NOW=$NOW" >> $env:GITHUB_ENV
+        git branch automation/updateAMI-${{env.NOW}} 
+        git checkout automation/updateAMI-${{env.NOW}}
+    - run: echo "Your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."    

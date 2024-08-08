@@ -24,13 +24,13 @@ jobs:
       with:
         format: "YYYY_MM_DD"
 
-    - name: Create new branch
-      id: create_branch
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git branch automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}
-        git checkout automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}
+    #- name: Create new branch
+    #  id: create_branch
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #  run: |
+    #    git branch automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}
+    #    git checkout automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}
 
     - name: Replace old AMI value with new one.
       uses: jacobtomlinson/gha-find-replace@v3

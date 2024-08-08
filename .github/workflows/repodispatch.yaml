@@ -55,7 +55,7 @@ jobs:
       id: create_PR
       uses: peter-evans/create-pull-request@v6
       with:
-          git-token: ${{ secrets.GITHUB_TOKEN }}
+          git-token: ${{ secrets.WORKFLOW_TOKEN }}   # ${{ secrets.GITHUB_TOKEN }}
           commit-message: Newly created AMI from AWS SSM
           title: New AMI and SNAPSHOT values from AWS SSM
           body: New AMI and SNAPSHOT values from AWS SSM

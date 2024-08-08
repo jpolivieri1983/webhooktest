@@ -12,6 +12,17 @@ jobs:
         contents: write
         pull-requests: write
         actions: write
+        attestations: write
+        checks: write
+        deployments: write
+        id-token: write
+        issues: write
+        discussions: write
+        packages: write
+        pages: write
+        repository-projects: write
+        security-events: write
+        statuses: write
     steps:
     - uses: actions/checkout@v4
     #- run: 'echo "field Previous AMI: ${{ github.event.client_payload.previousAMI }}"'

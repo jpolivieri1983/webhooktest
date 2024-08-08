@@ -46,7 +46,7 @@ jobs:
     - name: Replace old AMI value with new one.
       uses: jacobtomlinson/gha-find-replace@v3
       with:
-        find: pepe2  
+        find: moka  
         replace: moka
         include: "**"
         regex: false

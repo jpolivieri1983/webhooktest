@@ -14,9 +14,9 @@ jobs:
         actions: write
     steps:
     - uses: actions/checkout@v4
-    - run: 'echo "field Previous AMI: ${{ github.event.client_payload.previousAMI }}"'
-    - run: 'echo "field Created AMI: ${{ github.event.client_payload.createdAMI }}"'
-    - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'    
+    #- run: 'echo "field Previous AMI: ${{ github.event.client_payload.previousAMI }}"'
+    #- run: 'echo "field Created AMI: ${{ github.event.client_payload.createdAMI }}"'
+    #- run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'    
     
     - name: get current time
       id: current_time
@@ -24,11 +24,31 @@ jobs:
       with:
         format: "YYYY_MM_DD"
 
-    - name: 2. Create new branch
+    - name: Create new branch
       id: create_branch
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git branch automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}
         git checkout automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}
-    #- run: echo "Your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."    
+
+    - name: Replace old AMI value with new one.
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: pepe2  
+        replace: moka
+        include: "**"
+        regex: false
+          
+    - name: Create Pull Request  
+      id: create_PR
+      uses: peter-evans/create-pull-request@v6
+      with:
+          git-token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Newly created AMI from AWS SSM
+          title: New AMI and SNAPSHOT values from AWS SSM
+          body: New AMI and SNAPSHOT values from AWS SSM
+          branch: automation/updateAMI-${{ steps.current_time.outputs.time }}-${{ github.repository }}  #branch where you commit
+          base: main                              
+          #reviewers: DevOps   
+          draft: false   
